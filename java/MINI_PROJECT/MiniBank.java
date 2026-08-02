@@ -22,20 +22,20 @@ public class MiniBank {
         accounts[1].deposit(8000);
         accounts[2].withdraw(1000);
 
-        System.out.println("\nAccount Details");
-
-        for (Account a : accounts) {
-            System.out.println(a);
+        System.out.println("\nAccount Details:");
+        for (Account account : accounts) {
+            System.out.println(account);
         }
 
         System.out.println();
 
-        System.out.println(accounts[0].equals(accounts[1]));
+        System.out.println("Account 1 equals Account 2: "
+                + accounts[0].equals(accounts[1]));
 
         Object obj = accounts[0];
 
         if (obj instanceof Account) {
-            System.out.println("Object is Account");
+            System.out.println("Object is an Account");
         }
 
         Customer.Address address = new Customer.Address(
@@ -43,16 +43,16 @@ public class MiniBank {
                 "Anand",
                 "388001");
 
-        Customer c1 = new Customer(
+        Customer customer = new Customer(
                 "Rahul",
                 "rahul@gmail.com",
                 "9876543210",
                 address);
 
-        Customer c2 = c1.clone();
+        Customer clonedCustomer = customer.clone();
 
-        System.out.println("\nCustomer ID : " + c1.getCustomerId());
-        System.out.println("Cloned Customer : " + c2.getName());
+        System.out.println("\nCustomer ID: " + customer.getCustomerId());
+        System.out.println("Cloned Customer Name: " + clonedCustomer.getName());
 
         while (true) {
 
@@ -63,12 +63,10 @@ public class MiniBank {
             System.out.println("4. Transfer");
             System.out.println("5. Exit");
 
-            System.out.print("Enter Choice : ");
-
+            System.out.print("Enter Choice: ");
             int choice = sc.nextInt();
 
             String message = switch (choice) {
-
                 case 1 -> "Open Account - To be implemented later";
                 case 2 -> "Deposit - To be implemented later";
                 case 3 -> "Withdraw - To be implemented later";
@@ -79,8 +77,9 @@ public class MiniBank {
 
             System.out.println(message);
 
-            if (choice == 5)
+            if (choice == 5) {
                 break;
+            }
         }
 
         System.out.println("Thank You for using MiniBank.");

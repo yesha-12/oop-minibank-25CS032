@@ -43,14 +43,18 @@ public class Customer implements Cloneable {
     @Override
     public Customer clone() {
         try {
-            return (Customer) super.clone();
+            Customer copy = (Customer) super.clone();
+            copy.address = new Address(
+                    address.getLine(),
+                    address.getCity(),
+                    address.getPincode());
+            return copy;
         } catch (CloneNotSupportedException e) {
             return null;
         }
     }
 
     public static class Address {
-
         private String line;
         private String city;
         private String pincode;

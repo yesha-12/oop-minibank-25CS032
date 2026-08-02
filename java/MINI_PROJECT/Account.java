@@ -23,12 +23,13 @@ public class Account {
     }
 
     public void deposit(long amount) {
-        if (amount > 0)
+        if (amount > 0) {
             balance += amount;
+        }
     }
 
     public boolean withdraw(long amount) {
-        if (amount <= balance) {
+        if (amount > 0 && amount <= balance) {
             balance -= amount;
             return true;
         }
@@ -53,21 +54,19 @@ public class Account {
 
     @Override
     public String toString() {
-        return accountNumber + " | " + ownerName + " | Balance : ₹" + balance;
+        return accountNumber + " | " + ownerName + " | Balance: ₹" + balance;
     }
 
     @Override
     public boolean equals(Object obj) {
-
         if (this == obj)
             return true;
 
         if (!(obj instanceof Account))
             return false;
 
-        Account a = (Account) obj;
-
-        return accountNumber.equals(a.accountNumber);
+        Account other = (Account) obj;
+        return accountNumber.equals(other.accountNumber);
     }
 
     @Override
