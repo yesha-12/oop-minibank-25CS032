@@ -14,15 +14,26 @@ public class MiniBank {
 
         Account[] accounts = new Account[3];
 
-        accounts[0] = new Account("Rahul", 10000);
-        accounts[1] = new Account("Amit");
-        accounts[2] = new Account("Neha", 5000);
+        accounts[0] = new SavingsAccount("Rahul", 10000, 2000);
+        accounts[1] = new CurrentAccount("Amit", 0, 3000);
+        accounts[2] = new FixedDepositAccount("Neha", 5000);
 
         accounts[0].deposit(2000);
         accounts[1].deposit(8000);
         accounts[2].withdraw(1000);
 
+        System.out.println("\nInterest Rates:");
+
+        for (Account account : accounts) {
+            System.out.println(account.interestRate());
+
+            if (account instanceof FixedDepositAccount) {
+                System.out.println("Fixed Deposit account is locked.");
+            }
+        }
+
         System.out.println("\nAccount Details:");
+
         for (Account account : accounts) {
             System.out.println(account);
         }
