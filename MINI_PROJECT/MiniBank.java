@@ -1,5 +1,18 @@
 import java.util.Scanner;
 
+import model.Account;
+import model.BankInfo;
+import model.Command;
+import model.CurrentAccount;
+import model.Customer;
+import model.FixedDepositAccount;
+import model.MenuOption;
+import model.SavingsAccount;
+import service.WithdrawRule;
+import util.AnnotationValidator;
+import util.CommandParser;
+import util.StatementFormatter;
+
 public class MiniBank {
 
     public static void main(String[] args) {
@@ -30,7 +43,8 @@ public class MiniBank {
         System.out.println("\nInterest Rates:");
 
         for (Account account : accounts) {
-            System.out.println(account.interestRate());
+                System.out.println(account.interestRate() + "% (yearly: "
+                    + account.yearlyInterest() + ")");
 
             if (account instanceof FixedDepositAccount) {
                 System.out.println("Fixed Deposit account is locked.");
@@ -53,6 +67,22 @@ public class MiniBank {
         if (obj instanceof Account) {
             System.out.println("Object is an Account");
         }
+
+        WithdrawRule anonymousRule = new WithdrawRule() {
+            @Override
+            public boolean allow(Account account, long amount) {
+                return account.canWithdraw(amount);
+            }
+        };
+        WithdrawRule lambdaRule = (account, amount) -> account.canWithdraw(amount);
+        System.out.println("Withdrawal rules: "
+                + anonymousRule.allow(accounts[0], 500) + ", "
+                + lambdaRule.allow(accounts[1], 500));
+
+        Command command = CommandParser.parse("DEPOSIT AC0001 500");
+        System.out.println("Parsed command: " + command.type() + " "
+                + command.accountNumber() + " " + command.amount());
+        System.out.println(StatementFormatter.buildStatement(accounts[0]));
 
         Customer.Address address = new Customer.Address(
                 "Near Bus Stand",
@@ -82,18 +112,26 @@ public class MiniBank {
             System.out.print("Enter Choice: ");
             int choice = sc.nextInt();
 
-            String message = switch (choice) {
-                case 1 -> "Open Account - To be implemented later";
-                case 2 -> "Deposit - To be implemented later";
-                case 3 -> "Withdraw - To be implemented later";
-                case 4 -> "Transfer - To be implemented later";
-                case 5 -> "Exit";
-                default -> "Invalid Choice";
+            MenuOption option = switch (choice) {
+                case 1 -> MenuOption.OPEN_ACCOUNT;
+                case 2 -> MenuOption.DEPOSIT;
+                case 3 -> MenuOption.WITHDRAW;
+                case 4 -> MenuOption.TRANSFER;
+                case 5 -> MenuOption.EXIT;
+                default -> null;
+            };
+
+            String message = option == null ? "Invalid Choice" : switch (option) {
+                case OPEN_ACCOUNT -> "Open Account - To be implemented later";
+                case DEPOSIT -> "Deposit - To be implemented later";
+                case WITHDRAW -> "Withdraw - To be implemented later";
+                case TRANSFER -> "Transfer - To be implemented later";
+                case EXIT -> "Exit";
             };
 
             System.out.println(message);
 
-            if (choice == 5) {
+            if (option == MenuOption.EXIT) {
                 break;
             }
         }
