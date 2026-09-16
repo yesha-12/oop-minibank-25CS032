@@ -1,7 +1,14 @@
+import model.annotation.Id;
+import model.annotation.MaxLength;
+import model.annotation.Positive;
+
 public abstract class Account {
 
+    @Id
+    @MaxLength(6)
     private final String accountNumber;
     private String ownerName;
+    @Positive
     private long balance;
     private boolean active;
 

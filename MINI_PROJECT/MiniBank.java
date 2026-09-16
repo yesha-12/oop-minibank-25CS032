@@ -12,6 +12,11 @@ public class MiniBank {
         System.out.println(bank);
         System.out.println("================================");
 
+        Account invalidAccount = new SavingsAccount("Validation Test", -100, 0);
+        for (String error : AnnotationValidator.validate(invalidAccount)) {
+            System.out.println(error);
+        }
+
         Account[] accounts = new Account[3];
 
         accounts[0] = new SavingsAccount("Rahul", 10000, 2000);
