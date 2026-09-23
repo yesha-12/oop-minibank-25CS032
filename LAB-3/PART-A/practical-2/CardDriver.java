@@ -12,18 +12,15 @@ public class CardDriver {
             new Card("Jack", "Clubs")
         };
 
-        for (int i = 0; i < input.length; i++) {
-            boolean duplicate = false;
-
+        for (Card current : input) {
             for (int j = 0; j < count; j++) {
-                if (input[i].equals(cards[j])) {
-                    System.out.println("Duplicate found: " + input[i]);
-                    duplicate = true;
+                if (current.equals(cards[j])) {
+                    System.out.println("Duplicate found: " + current);
                     break;
                 }
             }
 
-            cards[count] = input[i];
+            cards[count] = current;
             count++;
         }
     }

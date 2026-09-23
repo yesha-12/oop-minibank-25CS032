@@ -35,7 +35,6 @@ public class SeatBookingRace {
         System.out.println("=== Without synchronization ===");
         BookingSystem system = new BookingSystem();
         Thread[] threads = new Thread[10];
-        int successfulBookings = 0;
 
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(() -> {

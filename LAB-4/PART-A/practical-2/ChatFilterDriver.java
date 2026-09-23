@@ -11,15 +11,13 @@ public class ChatFilterDriver {
                 "10:20 charlie hello everyone"
         };
 
-        Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Enter keyword : ");
 
-        System.out.print("Enter keyword : ");
+            String keyword = sc.nextLine();
 
-        String keyword = sc.nextLine();
-
-        System.out.println(ChatFilter.filter(logs, keyword));
-
-        sc.close();
+            System.out.println(ChatFilter.filter(logs, keyword));
+        }
 
     }
 

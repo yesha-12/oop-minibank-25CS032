@@ -66,9 +66,7 @@ public class Warehouse {
                 warehouse.issue(item, qty);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid quantity format for " + item + ".");
-            } catch (InvalidQuantityException e) {
-                System.out.println("Failed: " + e.getMessage());
-            } catch (OutOfStockException e) {
+            } catch (InvalidQuantityException | OutOfStockException e) {
                 System.out.println("Failed: " + e.getMessage());
             }
         }
