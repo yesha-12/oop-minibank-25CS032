@@ -1,4 +1,4 @@
-public class Driver {
+public class CardDriver {
     public static void main(String[] args) {
 
         Card[] cards = new Card[5];

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Driver {
+public class ChatFilterDriver {
 
     public static void main(String[] args) {
 
