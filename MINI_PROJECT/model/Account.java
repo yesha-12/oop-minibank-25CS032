@@ -33,19 +33,20 @@ public abstract class Account implements Transactable, InterestBearing {
         this(ownerName, 0);
     }
 
+    @Override
     public abstract double interestRate();
 
     public abstract boolean canWithdraw(long amount);
 
     @Override
-    public void deposit(long amount) {
+    public synchronized void deposit(long amount) {
         if (amount > 0) {
             balance += amount;
         }
     }
 
     @Override
-    public boolean withdraw(long amount) {
+    public synchronized boolean withdraw(long amount) {
         if (canWithdraw(amount)) {
             balance -= amount;
             return true;
@@ -61,7 +62,7 @@ public abstract class Account implements Transactable, InterestBearing {
         return ownerName;
     }
 
-    public long getBalance() {
+    public synchronized long getBalance() {
         return balance;
     }
 
