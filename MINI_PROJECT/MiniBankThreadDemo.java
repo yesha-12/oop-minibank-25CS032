@@ -3,6 +3,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 import model.Account;
 import model.SavingsAccount;
+import service.TransactionProcessor;
 
 public class MiniBankThreadDemo {
     private static final class Transaction implements Runnable {

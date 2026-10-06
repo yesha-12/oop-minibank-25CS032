@@ -40,4 +40,12 @@ public class Validator {
 
     }
 
+    public static boolean isValidOwnerName(String ownerName) {
+        return ownerName != null && !ownerName.isBlank();
+    }
+
+    public static boolean isValidAmount(long amount) {
+        return amount > 0;
+    }
+
 }

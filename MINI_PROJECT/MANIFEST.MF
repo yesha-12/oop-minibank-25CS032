@@ -1,1 +1,1 @@
-Main-Class: MiniBank
+Main-Class: MiniProjectMain

@@ -1,12 +1,17 @@
 package model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import model.annotation.Id;
 import model.annotation.MaxLength;
 import model.annotation.Positive;
 import service.InterestBearing;
 import service.Transactable;
 
-public abstract class Account implements Transactable, InterestBearing {
+public abstract class Account implements Transactable, InterestBearing,
+        Comparable<Account>, Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @MaxLength(6)
@@ -31,6 +36,11 @@ public abstract class Account implements Transactable, InterestBearing {
 
     public Account(String ownerName) {
         this(ownerName, 0);
+    }
+
+    @Override
+    public int compareTo(Account other) {
+        return accountNumber.compareTo(other.accountNumber);
     }
 
     @Override
@@ -95,5 +105,17 @@ public abstract class Account implements Transactable, InterestBearing {
     @Override
     public int hashCode() {
         return accountNumber.hashCode();
+    }
+
+    private void readObject(ObjectInputStream input)
+            throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+        String digits = accountNumber.replaceFirst("^AC", "");
+        try {
+            counter = Math.max(counter, Integer.parseInt(digits) + 1);
+        } catch (NumberFormatException exception) {
+            throw new IOException("Invalid serialized account number: "
+                    + accountNumber, exception);
+        }
     }
 }
