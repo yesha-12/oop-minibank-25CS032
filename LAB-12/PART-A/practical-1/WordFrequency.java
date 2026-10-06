@@ -20,3 +20,4 @@ public class WordFrequency {
                 .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
     }
 }
+
