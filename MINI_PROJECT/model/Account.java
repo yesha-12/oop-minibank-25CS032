@@ -6,11 +6,8 @@ import java.io.Serializable;
 import model.annotation.Id;
 import model.annotation.MaxLength;
 import model.annotation.Positive;
-import service.InterestBearing;
-import service.Transactable;
 
-public abstract class Account implements Transactable, InterestBearing,
-        Comparable<Account>, Serializable {
+public abstract class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -38,25 +35,17 @@ public abstract class Account implements Transactable, InterestBearing,
         this(ownerName, 0);
     }
 
-    @Override
-    public int compareTo(Account other) {
-        return accountNumber.compareTo(other.accountNumber);
-    }
-
-    @Override
     public abstract double interestRate();
 
     public abstract boolean canWithdraw(long amount);
 
-    @Override
-    public synchronized void deposit(long amount) {
+    public void deposit(long amount) {
         if (amount > 0) {
             balance += amount;
         }
     }
 
-    @Override
-    public synchronized boolean withdraw(long amount) {
+    public boolean withdraw(long amount) {
         if (canWithdraw(amount)) {
             balance -= amount;
             return true;
@@ -72,17 +61,20 @@ public abstract class Account implements Transactable, InterestBearing,
         return ownerName;
     }
 
-    public synchronized long getBalance() {
+    public long getBalance() {
         return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
     }
 
     public boolean isActive() {
         return active;
     }
 
-    @Override
-    public double yearlyInterest() {
-        return InterestBearing.super.yearlyInterest();
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

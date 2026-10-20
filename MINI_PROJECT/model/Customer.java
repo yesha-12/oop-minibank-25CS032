@@ -1,16 +1,14 @@
 package model;
 
 import java.io.Serializable;
-import model.annotation.Id;
 
-public class Customer implements Cloneable, Serializable {
+public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
     private String name;
     private String email;
     private String mobile;
-    @Id
     private final String customerId;
     private Address address;
 
@@ -48,18 +46,35 @@ public class Customer implements Cloneable, Serializable {
         return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", mobile='" + mobile + '\'' + ", customerId='" + customerId + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Customer))
+            return false;
+        Customer other = (Customer) obj;
+        return customerId.equals(other.customerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return customerId.hashCode();
+    }
+
     @Override
     public Customer clone() {
-        try {
-            Customer copy = (Customer) super.clone();
-            copy.address = new Address(
-                    address.getLine(),
-                    address.getCity(),
-                    address.getPincode());
-            return copy;
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
+        Customer copy = new Customer(name, email, mobile, new Address(
+                address.getLine(), address.getCity(), address.getPincode()));
+        return copy;
     }
 
     public static class Address implements Serializable {
@@ -85,6 +100,11 @@ public class Customer implements Cloneable, Serializable {
 
         public String getPincode() {
             return pincode;
+        }
+
+        @Override
+        public String toString() {
+            return line + ", " + city + " - " + pincode;
         }
     }
 }
