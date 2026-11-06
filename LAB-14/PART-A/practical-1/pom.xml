@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.practical</groupId>
-    <artifactId>counter-practical</artifactId>
+    <artifactId>task-list-practical</artifactId>
     <version>1.0.0</version>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
@@ -19,8 +19,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>${project.basedir}</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -28,10 +26,6 @@
                 <version>3.13.0</version>
                 <configuration>
                     <release>17</release>
-                    <excludes>
-                        <exclude>src/**</exclude>
-                        <exclude>target/**</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

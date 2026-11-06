@@ -14,4 +14,20 @@ public class Note implements Serializable {
     public String getText() {
         return text;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Note note)) {
+            return false;
+        }
+        return text.equals(note.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return text.hashCode();
+    }
 }

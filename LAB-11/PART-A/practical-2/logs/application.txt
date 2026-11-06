@@ -1,0 +1,5 @@
+Application started
+ERROR: Database connection failed
+User login successful
+ERROR: File not found
+Application closed
